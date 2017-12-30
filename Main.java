@@ -31,17 +31,17 @@ public class Main {
       }
    }
 
-   static void processSingleDirectory(File topDir, File artistdir) {
+   static void processSingleDirectory(File topDir, File artistDir) {
       if (topDir == null) {
          System.out.println("Logic error, no top level directory specified.");
          return;
       }
-      if (artistdir == null || !artistdir.isDirectory()) {
-         System.out.println("Got unexpected subdirectory (?) " + artistdir + ".");
+      if (artistDir == null || !artistDir.isDirectory()) {
+         System.out.println("Got unexpected subdirectory (?) " + artistDir + ".");
          return;
       }
-      String artistName = artistdir.getName();
-      File [] albumDirs = artistdir.listFiles(dirFilter);
+      String artistName = artistDir.getName();
+      File [] albumDirs = artistDir.listFiles(dirFilter);
       for (File albumDir : albumDirs) {
          File [] songs = albumDir.listFiles(mp3FileOnlyFilter);
          for (File song : songs) {
@@ -60,8 +60,18 @@ public class Main {
             String fullReplacement = topDir.getAbsolutePath() + File.separator +
                replacementName.substring(0, replacementName.length() - 4) + " - " + artistName + ".mp3";
             System.out.println("moving \"" + song.getAbsolutePath() + "\"\n        to \"" + fullReplacement + "\".");
-            // song.renameTo(new File(fullReplacement));
+            song.renameTo(new File(fullReplacement));
         }
+        File [] remainingAlbumFiles = albumDir.listFiles();
+        if (remainingAlbumFiles.length == 0) {
+           System.out.println("        Removing empty directory \"" + artistDir.getName() + File.separator + albumDir.getName() + "\".");
+           albumDir.delete();
+        }
+     }
+     File [] remainingArtistFiles = artistDir.listFiles();
+     if (remainingArtistFiles.length == 0) {
+        System.out.println("        Removing empty directory \"" + artistDir.getName() + "\".");
+        artistDir.delete();
      }
   }
 
