@@ -1,5 +1,7 @@
 # google-music-download-mp3-renamer
 
+**Note:** I host all of my git repositories using [gogs.io](https://gogs.io) on the [Sandstorm.io](https://sandstorm.io) open source hosting. I only set up Github as a second remote because everyone checks here first.
+
 When downloading music from the Google Music Manager app, it's divided into directories with the top level directory as the artist, second level directory as the album, and the file as the track number in the album and the song name. To make matters more complicated, Google does not include the ID3 tags for the MP3 files.
 
 I want all of the music files to be in one directory in the format:
